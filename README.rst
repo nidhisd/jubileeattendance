@@ -25,30 +25,30 @@ Local Setup of Postgres
 
 Use brew to install Postgresql
 
-```
+````
 brew install postgres
-```
+````
 
 
 To start the postgresql database 
 
-```
+````
 brew services start postgresql
-```
+````
 
 To locally run the app:
 
 1. To create a database locally
 
-```
+````
 python manage.py migrate
-```
+````
 
 2. To start the server-
 
-```
+````
 python manage.py runserver
-```
+````
 
 
 
