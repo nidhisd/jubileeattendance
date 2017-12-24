@@ -26,7 +26,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY', default='~Vw:Mpt0nG59SOXHv9PWJ:_B3]DC$JBe~
 # ------------------------------------------------------------------------------
 
 EMAIL_PORT = 1025
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = env('EMAIL_HOST', default='mailhog')
 
 
@@ -64,6 +64,7 @@ DEBUG_TOOLBAR_CONFIG = {
 # django-extensions
 # ------------------------------------------------------------------------------
 INSTALLED_APPS += ['django_extensions', ]
+
 
 # TESTING
 # ------------------------------------------------------------------------------
