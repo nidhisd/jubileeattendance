@@ -18,11 +18,6 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse('users:detail', kwargs={'username': self.username})
 
-class attendance(models.Model):
 
- 	attendance_date = models.DateTimeField('Attendance date')
-
- 	def __str__(self):
- 		return self.username
 
 
