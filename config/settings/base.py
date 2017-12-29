@@ -55,7 +55,9 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     # custom users app
     'jubileeattendance.users.apps.UsersConfig',
+    'jubileeattendance.attendance.apps.AttendanceConfig'
     # Your stuff: custom apps go here
+    # 'attendance.apps.AttendanceConfig',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
