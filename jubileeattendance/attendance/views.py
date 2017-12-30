@@ -19,7 +19,6 @@ def index(request):
 def markedattendance(request):
 	
 	try:
-		# latest_attendance = Attendance.objects.order_by('-date_marked')[:10]
 	    participant = get_object_or_404(Participant, participant_id = request.POST['participant_id'])
 	except:
 		return render(request, 'attendance/marked.html', {'error_message': 'Please enter valid Participant ID'})

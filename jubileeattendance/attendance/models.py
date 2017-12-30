@@ -17,7 +17,6 @@ class Attendance(models.Model):
 	date_marked = models.DateTimeField()
 	participant_id = models.ForeignKey(Participant)
 	am_pm = models.CharField(max_length=2)
-	#timestamp = models.DateTimeField()
 
 class Honors(models.Model):
 
