@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Jubilee Attendance{% endblock %}
+{% block content %}
+
+{% if error_message %} 
+	<p><strong> {{error_message}} </strong></p>
+{% endif %} 
+
+<form action="{% url 'attendance:markedattendance' %}" method="post">
+    {% csrf_token %}
+    <div>
+        <label for="name">Participant ID:</label>
+        <input type="text" id="participant_id" name="participant_id"></input>
+    </div>
+    <div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+        
+    </div>
+</form>
+
+{% endblock content %}

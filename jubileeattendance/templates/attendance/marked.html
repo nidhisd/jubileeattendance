@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Jubilee Attendance{% endblock %}
+{% block content %}
+
+{% if error_message %} 
+	<p class="alert alert-success"><strong> {{error_message}} </strong></p>
+{% else %}
+	<p class="alert alert-success"> <strong> {{message}} </strong></p>
+	<h3>Your morning Jamatkhana count: {{morning_count}}</h3>
+	<h3>Your evening Jamatkhana count: {{evening_count}}</h3>
+{% endif %} 
+
+{% endblock content %}
