@@ -254,9 +254,9 @@ AUTHENTICATION_BACKENDS = [
 # Some really nice defaults
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
-ACCOUNT_ALLOW_REGISTRATION = env.bool('DJANGO_ACCOUNT_ALLOW_REGISTRATION', True)
+ACCOUNT_ALLOW_REGISTRATION = False
 ACCOUNT_ADAPTER = 'jubileeattendance.users.adapters.AccountAdapter'
 SOCIALACCOUNT_ADAPTER = 'jubileeattendance.users.adapters.SocialAccountAdapter'
 
