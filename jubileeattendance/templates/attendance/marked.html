@@ -5,9 +5,11 @@
 {% block content %}
 
 {% if error_message %} 
-	<p><strong> {{error_message}} </strong></p>
+	<p class="alert alert-success"><strong> {{error_message}} </strong></p>
 {% else %}
-	<p> <strong> {{success_message}} </strong></p>
+	<p class="alert alert-success"> <strong> {{message}} </strong></p>
+	<h3>Your morning Jamatkhana count: {{morning_count}}</h3>
+	<h3>Your evening Jamatkhana count: {{evening_count}}</h3>
 {% endif %} 
 
 {% endblock content %}

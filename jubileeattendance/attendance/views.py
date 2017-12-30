@@ -47,15 +47,28 @@ def markedattendance(request):
 				participant_id = participant,
 				am_pm = am_pm).exists()
 
+		def get_attendance_count(participant):
+			morning_count = Attendance.objects.filter(participant_id = participant, am_pm = 'am').count()
+			evening_count = Attendance.objects.filter(participant_id = participant, am_pm = 'pm').count()
+			return (morning_count, evening_count)
+
 		am_pm = get_am_pm(current_date_time)
 		if not (am_pm is None):
 			if not check_if_already_marked(participant, am_pm, current_date_time):
 				Attendance.objects.create(date_marked = current_date_time, participant_id = participant, am_pm = am_pm)
-				success_message = ('Hi %s your attendance have been marked!' % participant.name)
-				return render(request, 'attendance/marked.html', {'success_message': success_message})
+				message = ('Hi %s your attendance have been marked!' % participant.name)
+				morning_count, evening_count = get_attendance_count(participant)
+				return render(request, 'attendance/marked.html',
+					{'message': message,
+					 'morning_count': morning_count,
+					 'evening_count': evening_count})
 			else:
-				error_message = ('Hi %s your attendance has already been marked!' % participant.name)
-				return render(request, 'attendance/marked.html', {'error_message': error_message})
+				message = ('Hi %s your attendance has already been marked!' % participant.name)
+				morning_count, evening_count = get_attendance_count(participant)
+				return render(request, 'attendance/marked.html',
+					{'message': message,
+					 'morning_count': morning_count,
+					 'evening_count': evening_count})
 
 		else:
 			error_message = ('Attendance can only be recorded between 5am - 8am and 7pm - 10pm!' 
