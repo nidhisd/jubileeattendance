@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 import datetime
 # Create your views here.
-from .models import Participant, Attendance, Honors
+from .models import Participant, Attendance
 # import the logging library
 import logging, sys
 
