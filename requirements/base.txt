@@ -43,8 +43,7 @@ pytz==2017.3
 django-redis==4.8.0
 redis>=2.10.5
 
-
-
-
-
 # Your custom requirements go here
+
+bootstrap-admin==0.3.8
+whitenoise==3.3.1
