@@ -6,7 +6,7 @@ class Participant(models.Model):
 
 	name = models.CharField(max_length=255)
 	participant_id = models.CharField(max_length=255)
-	email_id = models.EmailField()
+	grade = models.CharField(max_length=255, null = True)
 
 	def __str__(self):
 		return self.name
@@ -15,12 +15,11 @@ class Participant(models.Model):
 class Attendance(models.Model):
 
 	date_marked = models.DateTimeField()
-	participant_id = models.ForeignKey(Participant)
+	participant = models.ForeignKey(Participant)
 	am_pm = models.CharField(max_length=2)
 
-class Honors(models.Model):
+	def __str__(self):
+		return self.participant.name + ' ' + self.date_marked + ' ' + self.am_pm
 
-	participant_id = models.ForeignKey(Participant)
-	points = models.IntegerField()
 
 
