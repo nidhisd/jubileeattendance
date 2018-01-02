@@ -20,6 +20,3 @@ class Attendance(models.Model):
 
 	def __str__(self):
 		return self.participant.name + ' ' + self.date_marked + ' ' + self.am_pm
-
-
-
