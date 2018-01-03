@@ -4,7 +4,6 @@ from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 from .models import Participant, Attendance
-admin.site.register(Participant)
 admin.site.register(Attendance)
 
 
@@ -14,3 +13,5 @@ class ParticipantResource(resources.ModelResource):
 
 class ParticipantAdmin(ImportExportModelAdmin):
     resource_class = ParticipantResource
+
+admin.site.register(Participant, ParticipantAdmin)
