@@ -47,3 +47,4 @@ redis>=2.10.5
 
 bootstrap-admin==0.3.8
 whitenoise==3.3.1
+django-import-export==0.6.1
