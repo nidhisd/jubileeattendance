@@ -1,12 +1,92 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block title %}Jubilee Attendance{% endblock %}
 {% block content %}
 
 {% if error_message %} 
 	<p><strong> {{error_message}} </strong></p>
 {% endif %} 
+
+
+{% if modal_message %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		function getGoalsAndAward (morning_count, evening_count) {
+			var diamond_morning_goal = Math.max(10 - morning_count, 0)
+			var diamond_evening_goal = Math.max(30 - evening_count, 0)
+			var gold_morning_goal = Math.max(8 - morning_count, 0)
+			var gold_evening_goal = Math.max(25 - evening_count, 0)
+			var silver_morning_goal = Math.max(5 - morning_count, 0)
+			var silver_evening_goal = Math.max(20 - evening_count, 0)
+			if (diamond_morning_goal == 0 && diamond_evening_goal == 0) {
+				return "<h3>Congratulations! You have won Diamond award</h3>"
+			} else if (gold_morning_goal == 0 && gold_evening_goal ==0) {
+				return "<h3>Congratulations! You have won Gold award!</h3><br>" +
+			       "<h4>For diamond you need:<br>" +
+			       "Morning: " + diamond_morning_goal + "<br>" +
+			       "Evening:" + diamond_evening_goal + "<br></h4>"
+			} else if (silver_morning_goal == 0 && silver_evening_goal ==0) {
+				return "<h3>Congratulations! You have won Silver award!</h3><br>" +
+			       "<h4>For Diamond you need:<br>" +
+			       "Morning: " + diamond_morning_goal + "<br>" +
+			       "Evening:" + diamond_evening_goal + "<br>" +
+			       "For Gold you need:<br>" +
+			       "Morning: " + gold_morning_goal + "<br>" +
+			       "Evening:" + gold_evening_goal + "</h4><br>"
+			} else {
+				return '<dt class="col-sm-5"> Your goals: </dt>' +
+				   '<div style="margin-left: 20px; margin-top: 5px;">' +
+			       '<dt class="col-sm-3">Diamond</dt>' +
+			       '<dd class="col-sm-9">Morning: ' + diamond_morning_goal + "<br>" + 
+			       "Evening:" + diamond_evening_goal + "</dd>" +
+			       '<dt class="col-sm-3">Gold</dt>' +
+			       '<dd class="col-sm-9">' +
+			       "Morning: " + gold_morning_goal + "<br>" + 
+			       "Evening:" + gold_evening_goal + "</dd>" +
+			       '<dt class="col-sm-3">Silver</dt>' +
+			       '<dd class="col-sm-9">' +
+			       "Morning: " + silver_morning_goal + "<br>" + 
+			       "Evening:" + silver_evening_goal + "</dd></div>"
+			}
+		}
+	$("#goals_element").html(getGoalsAndAward({{morning_count}}, {{evening_count}}))
+	$('#participantModel').modal('show')
+/*	setTimeout(function() {
+		$('#participantModel').modal('hide')
+	 }, 3000);*/
+});
+
+</script>
+
+<!-- Modal -->
+<div class="modal fade" id="participantModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{modal_message}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<dt class="col-sm-8">Your current score:</dt>
+        </dt>
+        <dd class="col-sm-9" style="margin-left: 30px;">
+      	Morning: {{morning_count}} <br>
+	    Evening: {{evening_count}}</dd>    
+        <div id="goals_element"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-primary">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 
 <form action="{% url 'attendance:markedattendance' %}" method="post">
     {% csrf_token %}
@@ -19,5 +99,41 @@
         
     </div>
 </form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		// And for a doughnut chart
+	data = {
+		datasets: [{
+			data: {{ attendance_count }},
+			backgroundColor: ["#3e95cd", "#8e5ea2"]
+		}],
+    // These labels appear in the legend and in the tooltips when hovering different arcs
+    	labels: [
+        	'Attended',
+        	'Total'
+    	],
+    };
+
+    options = {
+      title: {
+        display: true,
+        fontFamily: "Verdana",
+        fontSize: 20,
+        text: "Today's Jamatkhana attendance"
+      }
+    }
+    var ctx = document.getElementById("eveningAttendanceChart").getContext("2d");
+    var myDoughnutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: data,
+        options: options
+    });
+
+	})
+</script>
+
+<canvas id="eveningAttendanceChart" width=100% height="25"></canvas>
 
 {% endblock content %}
