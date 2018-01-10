@@ -42,8 +42,9 @@ DJANGO_APPS = [
     # 'django.contrib.humanize',
 
     # Admin
-    'bootstrap_admin',
+    # 'bootstrap_admin',
     'django.contrib.admin',
+    'import_export',
 ]
 THIRD_PARTY_APPS = [
     'crispy_forms',  # Form layouts
